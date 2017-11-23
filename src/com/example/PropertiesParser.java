@@ -41,13 +41,14 @@ public class PropertiesParser implements Parser {
 
 	@Override
 	public Record parse(String line) {
-		FieldParser recordTypeDetails = fieldParsers.get("record_type");
-		FieldParser dateDetails = fieldParsers.get("date");
-		FieldParser nameDetails = fieldParsers.get("name");
-		String recordType = recordTypeDetails.getField(line);
-		String date = dateDetails.getField(line);
-		String name = nameDetails.getField(line);
+		String recordType = parseNamedField("record_type", line);
+		String date = parseNamedField("date", line);
+		String name = parseNamedField("name", line);
 		return new Record(recordType, date, name);
+	}
+
+	private String parseNamedField(String fieldName, String line) {
+		return fieldParsers.get(fieldName).getField(line);
 	}
 	
 	private static class FieldParser {
