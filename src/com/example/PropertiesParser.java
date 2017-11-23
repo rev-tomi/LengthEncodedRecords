@@ -7,6 +7,10 @@ import java.util.Properties;
 
 public class PropertiesParser implements Parser {
 	
+	private static final String NAME = "name";
+	private static final String DATE = "date";
+	private static final String RECORD_TYPE = "record_type";
+	
 	private final Map<String, FieldParser> fieldParsers = new HashMap<>();
 	
 	public PropertiesParser(Properties parserProperties) {
@@ -41,9 +45,9 @@ public class PropertiesParser implements Parser {
 
 	@Override
 	public Record parse(String line) {
-		String recordType = parseNamedField("record_type", line);
-		String date = parseNamedField("date", line);
-		String name = parseNamedField("name", line);
+		String recordType = parseNamedField(RECORD_TYPE, line);
+		String date = parseNamedField(DATE, line);
+		String name = parseNamedField(NAME, line);
 		return new Record(recordType, date, name);
 	}
 
