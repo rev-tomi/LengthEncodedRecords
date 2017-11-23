@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Properties;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,10 +15,15 @@ import org.junit.runners.Parameterized.Parameters;
 public class ParserTest {
 	
 	@Parameters
-	public static Collection<Object[]> data() {
+	public static Collection<Object[]> data() throws Exception {
+		
+		final Properties parserProperties = new Properties();
+		parserProperties.load(ParserTest.class.getResourceAsStream("parser.properties"));
+		
 		 return Arrays.asList(new Object[][]{
 			 {new SubstringParser(), "substring parser"}, 
-			 {new EnumParser(), "substring parser"}
+			 {new EnumParser(), "enum parser"},
+			 {new PropertiesParser(parserProperties), "properties parser"},
 		 });
 	}
 	
